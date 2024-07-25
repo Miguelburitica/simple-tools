@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavigationBar from '../components/NavigationBar.astro';
+import PaymentsList from '../components/PaymentsList.vue';
+---
+
+<Layout title="Sólo herramientas">
+  <NavigationBar />
+	<!-- add scaffold elements while charging -->
+	<main class="max-w-3xl mx-auto">
+		<PaymentsList client:load />
+	</main>
+</Layout>
