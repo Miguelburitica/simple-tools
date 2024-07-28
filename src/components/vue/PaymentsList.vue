@@ -32,16 +32,16 @@
       <input type="color" v-model="paymentForm.color">
       <input type="text" v-model="paymentForm.url" class="mb-8">
       <footer class="flex justify-between items-center">
-        <button type="submit">Crear</button>
         <button type="reset" @click="closeModal">Cancelar</button>
+        <button type="submit">Crear</button>
       </footer>
     </form>
   </dialog>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, type Ref } from 'vue';
-import type { ClickeableElement } from '../types';
+import { onMounted, onUnmounted, ref, type Ref } from 'vue';
+import type { ClickeableElement } from '../../types';
 import ClickeableCard from './ClickeableCard.vue';
 
 const paymentsFromLocalStorageJson = window.localStorage.getItem('paymentList')
@@ -57,12 +57,14 @@ const paymentForm = ref<ClickeableElement>({
 const paymentElements: Ref<ClickeableElement[]> = ref([])
 
 const modalIsOpen = ref(false)
+const justOpenModal = ref(false)
 
 if (Array.isArray(paymentsFromLocalStorage)) paymentElements.value.unshift(...paymentsFromLocalStorage)
 
 const showModal = () => {
   paymentModal.value?.showModal()
   modalIsOpen.value = true
+  justOpenModal.value = true
 }
 
 const closeModal = () => {
@@ -96,11 +98,25 @@ const addPayment = () => {
   modalIsOpen.value = false
 }
 
+const outsideHandle = (event: MouseEvent) => {
+    if (!justOpenModal.value && event.target !== paymentModal.value) {
+      modalIsOpen.value = false
+    }
+
+    justOpenModal.value = false
+  }
+
 onMounted(() => {
   paymentElements.value.unshift({
     title: 'Nuevo pago',
     callback: showModal
   })
+
+  addEventListener('click', outsideHandle)
+})
+
+onUnmounted(() => {
+  removeEventListener('click', outsideHandle)
 })
 
 </script>
