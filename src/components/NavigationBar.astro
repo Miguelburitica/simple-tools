@@ -12,19 +12,19 @@ const title = titlesMap[pathName]
 <header
   class="
     max-w-[95%] sm:max-w-screen-md mx-auto rounded-2xl
-    px-4 mt-4 py-4 flex justify-between items-center
+    px-4 mt-4 py-2 flex justify-between items-center
     shadow-md transition-shadow
   "
   transition:animate="slide"
   >
-  <h1 class="text-5xl font-semibold tracking-widest">
+  <h1 class="text-2xl font-semibold tracking-widest">
     { title }
   </h1>
   <nav class=" flex justify-end">
     <li>
       <a
         class={`
-          px-4 py-4 block rounded-2xl rounded-r-none
+          px-4 py-2 block rounded-2xl rounded-r-none
           transition-colors
           hover:bg-blue-marguerite-500
           ${pathName === '/bills' ? 'font-semibold bg-blue-marguerite-600' : ''}
@@ -37,7 +37,7 @@ const title = titlesMap[pathName]
     <li>
       <a
         class={`
-          px-4 py-4 block rounded-2xl rounded-l-none
+          px-4 py-2 block rounded-2xl rounded-l-none
           transition-colors
           hover:bg-blue-marguerite-500
           ${pathName === '/chores' ? 'font-semibold bg-blue-marguerite-600' : ''}
